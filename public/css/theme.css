@@ -1,0 +1,138 @@
+@font-face {
+  font-family: "kardinal";
+  src: url("/fonts/kardinal.ttf") format("truetype");
+}
+
+* {
+	font-family: "Gentium Plus", "Gentium Basic", "Gentium";
+	font-feature-settings: "cv43" 2, "Engs" 2;
+}
+
+body {
+	background-color: #ccffcc;
+	color: #003300;
+	height: 100%;
+	border-left-style: groove;
+	border-right-style: groove;
+	border-width: 10px;
+	border-color: #336633;
+	padding: 50px 10%;
+	max-width: 600px;
+	margin: auto;
+	line-height: 1.25;
+	font-size: 100%;
+}
+
+table.phonology {
+	font-size: 75%;
+	width: 100%;
+}
+
+a {
+	color: #339900;
+	text-decoration: none;
+	font-size: 100%;
+	cursor: pointer;
+}
+
+a:hover {
+	color: #cc6600;
+	font-size: 100%;
+}
+
+a.back {
+	line-height: 3.0;
+}
+
+h1 {
+	font-family: "VL PGothic", "Meiryo", sans-serif;
+	color: #006666;
+}
+
+pre, code {
+	font-family: "VL Gothic", "Liberation Mono", "DejaVu Sans Mono", "Consolas", monospace;
+	color: #660033;
+	font-size: 100%;
+}
+
+cursing {
+	font-family: "Liberation Mono", "DejaVu Sans Mono", monospace;
+	color: #AA2000;
+}
+
+li {
+	padding-top: 0.4em;
+	padding-bottom: 0.3em;
+}
+
+hacm > *, .hacm > *, hacm, .hacm {
+	font-family: "kardinal", sans-serif;
+}
+
+sc {
+	font-variant: small-caps;
+}
+
+.hacmtoggle {
+	position: sticky;
+	width: 100% 600px;
+	top: 10px;
+	padding: 20px;
+	border-radius: 15px;
+	background: #eeffee;
+	z-index: 1;
+}
+
+.form, form {
+	background: #ffeeff;
+	padding: 10px;
+	margin: -10px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	border-radius: 10px;
+}
+
+@media screen and (min-width: 1200px) {
+	.hacmtoggle {
+		position: fixed;
+		top: 20px;
+		left: 20px;
+		padding: 25px;
+		border-radius: 20px;
+		width: auto;
+	}
+}
+
+.short { display: none; }
+
+@media screen and (orientation: landscape)
+		and (max-width: 1199px) and (max-height: 600px) {
+	.short { display: contents; }
+	.tall { display: none; }
+	.hacmtoggle {
+		position: fixed;
+		top: 20px;
+		left: 20px;
+		padding: 15px;
+		border-radius: 10px;
+	}
+}
+
+@media print {
+	body {
+		background-color: #ffffff;
+		color: #000000;
+		border-left-style: none;
+		border-right-style: none;
+		padding: 0px;
+	}
+	.hacmtoggle {
+		display: none;
+		height: 0px;
+		padding: 0px;
+	}
+}
+
+.idtag {
+  font-size: 50%;
+}

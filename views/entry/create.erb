@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<%#include "entry.h" %>
+<% tfetch(QVariantMap, entry); %>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title><%= controller()->name() + ": " + controller()->activeAction() %></title>
+</head>
+<body>
+<p style="color: red"><%=$ error %></p>
+<p style="color: green"><%=$ notice %></p>
+
+<h2>New Entry</h2>
+
+<%== formTag(urla("create"), Tf::Post) %>
+  <p>
+    <label>Word<br /><input name="entry[name]" value="<%= entry["name"] %>" class="hacm" /></label>
+  </p>
+  <p>
+    <label>Definition<br /><textarea name="entry[body]" rows="25" cols="80"><%= entry["body"] %></textarea></label>
+  </p>
+  <p>
+    <input type="submit" value="Create" />
+  </p>
+</form>
+
+<%== linkTo("Back", urla("index")) %>
+
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<%#include "entry.h" %>
+<% tfetch(Entry, entry); %>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title><%= controller()->name() + ": " + controller()->activeAction() %></title>
+</head>
+<body>
+<p style="color: red"><%=$ error %></p>
+<p style="color: green"><%=$ notice %></p>
+
+<h2><hacm><%= entry.name() %> <span class="idtag"><%= entry.id() %></font></hacm></h2>
+
+<div class="definition">
+  <%== MarkupHelper::markupToHTML(entry.body()) %>
+</div>
+
+<dt>Created at</dt><dd><%= entry.createdAt() %></dd><br />
+<dt>Updated at</dt><dd><%= entry.updatedAt() %></dd><br />
+<dt>Lock Revision</dt><dd><%= entry.lockRevision() %></dd><br />
+
+<%== linkTo("Edit", urla("save", entry.id())) %> |
+<%== linkTo("Back", urla("index")) %>
+
+</body>
+</html>

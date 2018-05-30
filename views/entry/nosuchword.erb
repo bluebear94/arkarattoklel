@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<%#include "entry.h" %>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title><%= controller()->name() + ": " + controller()->activeAction() %></title>
+</head>
+<body>
+
+<h2>No Such Word</h2>
+
+<% tfetch(QString, name); %>
+<p>
+  There is no word named <hacm><%= name %></hacm> in the dictionary. Do you want to
+  <%== linkTo("add a new word?", urla("create")) %><br />
+</p>
+
+</body>
+</html>
