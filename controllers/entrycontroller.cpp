@@ -1,6 +1,14 @@
 #include "entrycontroller.h"
 #include "entry.h"
+#include "entryaudit.h"
 
+#define CHECK_LOGIN \
+    if (!isUserLoggedIn()) { \
+        QString message = "Please log in to edit the dictionary."; \
+        tflash(message); \
+        redirect(QUrl("/Account/form")); \
+        return; \
+    }
 
 void EntryController::index()
 {
@@ -18,6 +26,7 @@ void EntryController::show(const QString &id)
 
 void EntryController::create()
 {
+    CHECK_LOGIN
     switch (httpRequest().method()) {
     case Tf::Get:
         render();
@@ -28,6 +37,8 @@ void EntryController::create()
         auto model = Entry::create(entry);
 
         if (!model.isNull()) {
+            EntryAudit::create(
+                model.id(), loginID(), ENTRY_CREATE, "", model.body());
             QString notice = "Created successfully.";
             tflash(notice);
             redirect(urla("show", model.id()));
@@ -54,6 +65,7 @@ void EntryController::create()
 
 void EntryController::save(const QString &id)
 {
+    CHECK_LOGIN
     switch (httpRequest().method()) {
     case Tf::Get: {
         auto model = Entry::get(id.toInt());
@@ -76,10 +88,17 @@ void EntryController::save(const QString &id)
             redirect(urla("save", id));
             break;
         }
-
+        QString oldBody = model.body();
+        QString oldTitle = model.name();
         auto entry = httpRequest().formItems("entry");
         model.setProperties(entry);
         if (model.save()) {
+            if (model.body() != oldBody)
+                EntryAudit::create(
+                    entry["id"].toInt(), loginID(), ENTRY_EDIT, oldBody, model.body());
+            if (model.name() != oldTitle)
+                EntryAudit::create(
+                    entry["id"].toInt(), loginID(), ENTRY_RENAME, oldTitle, model.name());
             QString notice = "Updated successfully.";
             tflash(notice);
             redirect(urla("show", model.id()));
@@ -99,12 +118,14 @@ void EntryController::save(const QString &id)
 
 void EntryController::remove(const QString &id)
 {
+    CHECK_LOGIN
     if (httpRequest().method() != Tf::Post) {
         renderErrorResponse(Tf::NotFound);
         return;
     }
 
     auto entry = Entry::get(id.toInt());
+    EntryAudit::create(entry.id(), loginID(), ENTRY_REMOVE, entry.body(), "");
     entry.remove();
     redirect(urla("index"));
 }

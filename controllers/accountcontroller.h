@@ -16,6 +16,7 @@ public slots:
     void logout();
     void regform();
     void regist();
+    void list();
 };
 
 #endif // ACCOUNTCONTROLLER_H

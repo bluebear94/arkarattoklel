@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<%#include "user.h" %>
+<%#include "entry.h" %>
+<%#include "entryaudit.h" %>
+<%#include "applicationhelper.h" %>
+<%#include "melpalthelper.h" %>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title><%= controller()->name() + ": " + controller()->activeAction() %></title>
+</head>
+<body>
+
+<% tfetch(EntryAudit, revision); %>
+<% tfetch(User, user); %>
+<% tfetch(Entry, word); %>
+<h2>Entry Log</h2>
+
+<div style="color: red;"><%==$message %></div>
+
+<%
+static const char* verbs[] = {"ladat", "ivlat", "yukit", "luulat"};
+%>
+<div class="hacm">
+  <%= user.isNull() ? "(??""?)" : user.username() %>
+  <%= QString(verbs[revision.actionId() - 1]) %>
+  <%== linkTo(word.isNull() ? "(??""?)" : word.name(),
+    url("Entry/show", QString::number(revision.entryId()))) %>
+  im
+  <%= MelpaltHelper::ltm(revision.createdAt()) %>
+</div>
+
+<table width="100%">
+  <tr>
+    <th class="hacm" width="50%">i tu:</th>
+    <th class="hacm" width="50%">a tu:</th>
+  </tr>
+  <tr>
+    <td valign="top"><%== MarkupHelper::markupToHTML(revision.oldtext()) %></td>
+    <td valign="top"><%== MarkupHelper::markupToHTML(revision.newtext()) %></td>
+  </tr>
+</table>
+
+<%== linkTo("back", urla("entries")) %>
+
+</body>
+</html>

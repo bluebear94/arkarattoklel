@@ -126,7 +126,6 @@ User User::authenticate(
         m = "kozet fucked up; please yell at him";
         obj.clear();
     } else if (storedHash != hash) {
-        tError("User::authenticate: Expected %s, got %s", storedHash.toHex().data(), hash.toHex().data());
         m = "Invalid username or password";
         obj.clear();
     }
@@ -177,6 +176,12 @@ User User::get(int id)
 {
     TSqlORMapper<UserObject> mapper;
     return User(mapper.findByPrimaryKey(id));
+}
+
+User User::getByIdentityKey(const QString &username) {
+    TSqlORMapper<UserObject> mapper;
+    TCriteria cri(UserObject::Username, username);
+    return User(mapper.findFirst(cri));
 }
 
 int User::count()

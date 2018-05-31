@@ -7,30 +7,22 @@
 </head>
 <body>
 
-<h2>Listing Entry</h2>
+<h2>All Entries</h2>
 
-<%== linkTo("Add a new word", urla("create")) %><br />
-<br />
-<table border="1" cellpadding="5" style="border: 1px #d0d0d0 solid; border-collapse: collapse;">
-  <tr>
-    <th>ID</th>
-    <th>Word</th>
-    <th>Definition</th>
-  </tr>
+<div style="color: red;"><%==$message %></div>
+
+<%== linkTo("Add a new word", urla("create")) %><br /><br />
+
 <% tfetch(QList<Entry>, entryList); %>
 <% for (const auto &i : entryList) { %>
-  <tr>
-    <td><%= i.id() %></td>
-    <td><hacm><%= i.name() %></hacm></td>
-    <td><%= i.body() %></td>
-    <td>
-      <%== linkTo("Show", urla("show", i.id())) %>
-      <%== linkTo("Edit", urla("save", i.id())) %>
-      <%== linkTo("Remove", urla("remove", i.id()), Tf::Post, "confirm('Are you sure?')") %>
-    </td>
-  </tr>
+  <div>
+    <hacm><%== linkTo(i.name(), urla("show", i.id())) %>
+      <span class="idtag"><%= i.id() %></span></hacm>
+    <%= i.body() %>
+    <%== linkTo("Edit", urla("save", i.id())) %>
+    <%== linkTo("Remove", urla("remove", i.id()), Tf::Post, "confirm('Are you sure?')") %>
+  </div>
 <% } %>
-</table>
 
 </body>
 </html>

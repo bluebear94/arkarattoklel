@@ -1,6 +1,7 @@
 #include "accountcontroller.h"
 
 #include "user.h"
+#include "useraudit.h"
 
 void AccountController::form() {
     userLogout();
@@ -52,11 +53,22 @@ void AccountController::regist() {
         render("regform");
         return;
     }
+    QVariantMap values;
+    values["user"] = user.id();
+    values["action"] = USER_CREATE;
+    UserAudit::create(values);
     render("regok");
 }
 
 void AccountController::logout() {
     userLogout();
+    redirect(QUrl("/"));
+}
+
+void AccountController::list() {
+    QList<User> userList = User::getAll();
+    texport(userList);
+    render();
 }
 
 // Don't remove below this line

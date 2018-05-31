@@ -21,3 +21,5 @@ HEADERS += indexpagecontroller.h
 SOURCES += indexpagecontroller.cpp
 HEADERS += accountcontroller.h
 SOURCES += accountcontroller.cpp
+HEADERS += auditcontroller.h
+SOURCES += auditcontroller.cpp

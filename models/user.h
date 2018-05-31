@@ -44,6 +44,7 @@ public:
     static User create(const QString &username, const QString &password, int regist);
     static User create(const QVariantMap &values);
     static User get(int id);
+    static User getByIdentityKey(const QString& username);
     static int count();
     static QList<User> getAll();
     static QJsonArray getAllJson();

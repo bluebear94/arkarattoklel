@@ -17,3 +17,5 @@ HEADERS += applicationhelper.h
 HEADERS += markuphelper.h
 SOURCES += applicationhelper.cpp
 SOURCES += markuphelper.cpp
+HEADERS += melpalthelper.h
+SOURCES += melpalthelper.cpp

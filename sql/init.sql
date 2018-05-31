@@ -18,3 +18,26 @@ CREATE TABLE IF NOT EXISTS User (
 );
 
 CREATE INDEX IF NOT EXISTS UserByName ON User (username);
+
+CREATE TABLE IF NOT EXISTS EntryAudit (
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	created_at TIMESTAMP,
+	entry_id INTEGER NOT NULL,
+	done_by INTEGER NOT NULL,
+	action_id INTEGER NOT NULL,
+	oldtext VARCHAR,
+	newtext VARCHAR,
+	-- FOREIGN KEY (entry_id) REFERENCES Entry(id),
+	FOREIGN KEY (done_by) REFERENCES User(id)
+);
+CREATE TABLE IF NOT EXISTS UserAudit (
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	created_at TIMESTAMP,
+	user INTEGER,
+	done_by INTEGER NOT NULL,
+	action_id INTEGER NOT NULL,
+	oldtext VARCHAR,
+	newtext VARCHAR
+	-- FOREIGN KEY (user) REFERENCES User(id)
+	-- FOREIGN KEY (done_by) REFERENCES User(id)
+);

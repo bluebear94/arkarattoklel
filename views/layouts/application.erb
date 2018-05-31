@@ -5,8 +5,14 @@
   <title>arkarattoklel: The Arka-English Dictionary</title>
   <link rel="stylesheet" type="text/css" href="/css/theme.css">
 </head>
+<% tfetch(QString, username); %>
 <body>
   <a href="/"><img src="/images/ARKlogo.png" width="400" height="100" alt="arkarattoklel" /></a>
+  <% if (username.isEmpty()) { %>
+  <p><%== linkTo("Login", QUrl("/Account/form")) %> or <%== linkTo("register", QUrl("/Account/regform")) %></p>
+  <% } else { %>
+  <p>Logged in as <%= username %>. <%== linkTo("Logout", QUrl("Account/logout")) %></p>
+  <% } %>
   <form id="search">
     <div>
       <label for="word">Look up: </label>

@@ -19,6 +19,8 @@ public slots:
 
 protected:
     virtual bool preFilter();
+    int loginID() { return userid; }
+    int userid;
 };
 
 #endif // APPLICATIONCONTROLLER_H

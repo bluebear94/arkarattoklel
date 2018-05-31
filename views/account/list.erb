@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<%#include "user.h" %>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title><%= controller()->name() + ": " + controller()->activeAction() %></title>
+</head>
+<body>
+
+<h2>All Users</h2>
+
+<div style="color: red;"><%==$message %></div>
+
+<% tfetch(QString, username); %>
+<% tfetch(User, user); %>
+<% if (!username.isEmpty()) { %>
+  <div class="hacm">nif tiil et <%= user.regist() %>.</div>
+<% } %>
+
+<% tfetch(QList<User>, userList); %>
+<% for (const auto &i : userList) { %>
+  <div>
+    <hacm><%== i.username() %>
+      <span class="idtag"><%= i.id() %></span>
+      oken nif <%== i.regist() %>
+    </hacm>
+  </div>
+<% } %>
+
+</body>
+</html>

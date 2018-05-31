@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<%#include "entryaudit.h" %>
+<%#include "applicationhelper.h" %>
+<%#include "melpalthelper.h" %>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title><%= controller()->name() + ": " + controller()->activeAction() %></title>
+</head>
+<body>
+
+<h2>Entry Log</h2>
+
+<div style="color: red;"><%==$message %></div>
+
+<%
+static const char* verbs[] = {"ladat", "ivlat", "yukit", "luulat"};
+%>
+<% tfetch(QVector<MelpaltHelper::EntryAuditRecord>, records); %>
+<% for (const auto &i : records) { %>
+  <hacm>
+    <%= i.userName.isEmpty() ? "(??""?)" : i.userName %>
+    <%== linkTo(QString(verbs[i.actionID - 1]), urla("viewChange", i.revisionID)) %>
+    <%== linkTo(i.entryName.isEmpty() ? "(??""?)" : i.entryName,
+      url("Entry/show", QString::number(i.entryID))) %>
+    im
+    <%= i.createdAt.toString() %>
+    <% if (i.actionID == ENTRY_RENAME) { %>
+      <%= !i.oldtext.isEmpty() && MelpaltHelper::isVowel(i.oldtext[0]) ? "it" : "i" %>
+      <%= i.oldtext %>
+      <%= !i.newtext.isEmpty() && MelpaltHelper::isVowel(i.newtext[0]) ? "al" : "a" %>
+      <%= i.newtext %>
+    <% } %>
+  </hacm>
+  <br />
+<% } %>
+
+</body>
+</html>
