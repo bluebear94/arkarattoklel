@@ -15,3 +15,7 @@ include(../appbase.pri)
 HEADERS += sqlobjects/entryobject.h
 HEADERS += entry.h
 SOURCES += entry.cpp
+HEADERS += sqlobjects/userobject.h
+HEADERS += user.h
+SOURCES += user.cpp
+LIBS += -L/usr/lib -L/usr/lib/x86_64-linux-gnu -largon2

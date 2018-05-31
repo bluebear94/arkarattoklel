@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+</head>
+<body>
+  <h1>Register</h1>
+  <div style="color: red;">Please note that all account requests must be approved by an admin.</div>
+  <div style="color: red;"><%==$message %></div>
+  <%== formTag(urla("regist")); %>
+    <div>
+      <label for="username">Username: </label>
+      <input type="text" name="username" value="" />
+    </div>
+    <div>
+      <label for="password">Password: </label>
+      <input type="password" name="password" value="" />
+    </div>
+    <div>
+      <label for="confirm">Who created Arka? (pseudonym) </label>
+      <input type="text" name="confirm" value="" />
+    </div>
+    <div>
+      <input type="submit" value="Login" />
+    </div>
+  </form>
+</body>
+</html>
