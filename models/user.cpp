@@ -112,7 +112,7 @@ User User::authenticate(
         obj.clear();
         return User(obj);
     }
-    if (obj.regist != 1) {
+    if (obj.regist < 1) {
         m = "Account not confirmed by administrator";
         obj.clear();
         return User(obj);

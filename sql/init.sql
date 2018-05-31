@@ -7,4 +7,14 @@ CREATE TABLE IF NOT EXISTS Entry (
 	lock_revision INTEGER
 );
 
-CREATE INDEX IF NOT EXISTS EntryByName ON Entry (Name);
+CREATE INDEX IF NOT EXISTS EntryByName ON Entry (name);
+
+CREATE TABLE IF NOT EXISTS User (
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	username VARCHAR(128) UNIQUE,
+	passhash BLOB,
+	salt BLOB,
+	regist INTEGER
+);
+
+CREATE INDEX IF NOT EXISTS UserByName ON User (username);
