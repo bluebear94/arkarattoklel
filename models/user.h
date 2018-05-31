@@ -25,10 +25,10 @@ public:
     int id() const;
     QString username() const;
     void setUsername(const QString &username);
-    QByteArray passhash() const;
-    void setPasshash(const QByteArray &passhash);
-    QByteArray salt() const;
-    void setSalt(const QByteArray& salt);
+    QString passhash() const;
+    void setPasshash(const QString &passhash);
+    QString salt() const;
+    void setSalt(const QString& salt);
     int regist() const;
     void setRegist(int regist);
     QString identityKey() const { return username(); }
@@ -40,7 +40,7 @@ public:
     bool remove() { return TAbstractModel::remove(); }
 
     static User authenticate(const QString &username, const QString &password, const char** message = nullptr);
-    static User create(const QString &username, const QByteArray &passhash, const QByteArray& salt, int regist);
+    static User create(const QString &username, const QString &passhash, const QString& salt, int regist);
     static User create(const QString &username, const QString &password, int regist);
     static User create(const QVariantMap &values);
     static User get(int id);

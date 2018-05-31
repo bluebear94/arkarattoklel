@@ -10,8 +10,8 @@ class T_MODEL_EXPORT UserObject : public TSqlObject, public QSharedData
 public:
     int id {0};
     QString username;
-    QByteArray passhash;
-    QByteArray salt;
+    QString passhash;
+    QString salt;
     int regist {0};
 
     enum PropertyIndex {
@@ -32,10 +32,10 @@ private:    /*** Don't modify below this line ***/
     T_DEFINE_PROPERTY(int, id)
     Q_PROPERTY(QString username READ getusername WRITE setusername)
     T_DEFINE_PROPERTY(QString, username)
-    Q_PROPERTY(QByteArray passhash READ getpasshash WRITE setpasshash)
-    T_DEFINE_PROPERTY(QByteArray, passhash)
-    Q_PROPERTY(QByteArray salt READ getsalt WRITE setsalt)
-    T_DEFINE_PROPERTY(QByteArray, salt)
+    Q_PROPERTY(QString passhash READ getpasshash WRITE setpasshash)
+    T_DEFINE_PROPERTY(QString, passhash)
+    Q_PROPERTY(QString salt READ getsalt WRITE setsalt)
+    T_DEFINE_PROPERTY(QString, salt)
     Q_PROPERTY(int regist READ getregist WRITE setregist)
     T_DEFINE_PROPERTY(int, regist)
 };

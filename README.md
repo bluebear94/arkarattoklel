@@ -4,7 +4,12 @@ Source code for what I hope will be the Arka-English dictionary.
 
 ### How to build
 
-Install [TreeFrog](http://www.treefrogframework.org/), then type in
+Install the following:
+
+* [TreeFrog](http://www.treefrogframework.org/)
+* argon2 library files (on Ubuntu, this is `libargon2-0-dev`)
+
+then type in
 
     qmake -r "CONFIG+=debug" # for a debug build
     qmake -r "CONFIG+=release" # for a release build

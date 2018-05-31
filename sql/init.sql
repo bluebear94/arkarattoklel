@@ -12,8 +12,8 @@ CREATE INDEX IF NOT EXISTS EntryByName ON Entry (name);
 CREATE TABLE IF NOT EXISTS User (
 	id INTEGER PRIMARY KEY AUTOINCREMENT,
 	username VARCHAR(128) UNIQUE,
-	passhash BLOB,
-	salt BLOB,
+	passhash VARCHAR, -- ideally would be BLOB, but BLOBs are not written to the db as intended
+	salt VARCHAR,
 	regist INTEGER
 );
 

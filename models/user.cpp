@@ -44,12 +44,12 @@ void User::setUsername(const QString &username)
     d->username = username;
 }
 
-QByteArray User::passhash() const
+QString User::passhash() const
 {
     return d->passhash;
 }
 
-void User::setPasshash(const QByteArray &passhash)
+void User::setPasshash(const QString &passhash)
 {
     d->passhash = passhash;
 }
@@ -64,12 +64,12 @@ void User::setRegist(int regist)
     d->regist = regist;
 }
 
-QByteArray User::salt() const
+QString User::salt() const
 {
     return d->salt;
 }
 
-void User::setSalt(const QByteArray& salt)
+void User::setSalt(const QString& salt)
 {
     d->salt = salt;
 }
@@ -117,12 +117,16 @@ User User::authenticate(
         obj.clear();
         return User(obj);
     }
+    QByteArray storedHash = QByteArray::fromHex(obj.passhash.toUtf8());
+    QByteArray storedSalt = QByteArray::fromHex(obj.salt.toUtf8());
     int errc;
-    QByteArray hash = makeHash(obj.salt, password, errc);
+    QByteArray hash = makeHash(storedSalt, password, errc);
     if (errc != ARGON2_OK) {
+        tError("User::authenticate: Hash returned error code %d", errc);
         m = "kozet fucked up; please yell at him";
         obj.clear();
-    } else if (obj.passhash != hash) {
+    } else if (storedHash != hash) {
+        tError("User::authenticate: Expected %s, got %s", storedHash.toHex().data(), hash.toHex().data());
         m = "Invalid username or password";
         obj.clear();
     }
@@ -143,10 +147,10 @@ User User::create(const QString &username, const QString &password, int regist)
         tError("User::create: Hash returned error code %d", errc);
         return User();
     }
-    return User::create(username, hash, salt, regist);
+    return User::create(username, QString(hash.toHex()), QString(salt.toHex()), regist);
 }
 
-User User::create(const QString &username, const QByteArray &passhash, const QByteArray& salt, int regist)
+User User::create(const QString &username, const QString &passhash, const QString& salt, int regist)
 {
     UserObject obj;
     obj.username = username;
