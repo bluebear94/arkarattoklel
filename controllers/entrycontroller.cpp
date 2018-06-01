@@ -1,6 +1,14 @@
 #include "entrycontroller.h"
+
+#include <QRegExp>
+
+#include <tsqlqueryormapper.h>
+#include <tsqlqueryormapperiterator.h>
+
 #include "entry.h"
 #include "entryaudit.h"
+#include "sqlobjects/entryobject.h"
+#include "melpalthelper.h"
 
 #define CHECK_LOGIN \
     if (!isUserLoggedIn()) { \
@@ -140,9 +148,43 @@ void EntryController::search(const QString& name) {
     }
 }
 
+static const char* rsearchQuery = R"*(
+SELECT
+	E.id, E.name, rank,
+	highlight(EntryFTS, 0, "«", "»")
+	FROM EntryFTS I
+	JOIN Entry E on I.rowid = E.id
+	WHERE I.body MATCH ?
+    ORDER BY rank DESC;
+)*";
+
+void EntryController::rsearch(const QString& name) {
+    TSqlQuery query;
+    query.setForwardOnly(true);
+    query.prepare(rsearchQuery);
+    query.addBind(QVariant(name));
+    query.exec();
+    QVector<MelpaltHelper::EntryRSearchRecord> entries;
+    while (query.next()) {
+        entries.push_back({
+            query.value(0).toInt(),
+            query.value(1).toString(),
+            query.value(2).toDouble(),
+            query.value(3).toString(),
+        });
+    }
+    texport(entries);
+    render();
+}
+
 void EntryController::search() {
     QString val = httpRequest().queryItemValue("word");
     search(val);
+}
+
+void EntryController::rsearch() {
+    QString val = httpRequest().queryItemValue("eword");
+    rsearch(val);
 }
 
 

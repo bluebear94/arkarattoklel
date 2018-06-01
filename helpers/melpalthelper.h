@@ -26,8 +26,15 @@ public:
         QString oldtext, newtext;
     };
     static bool isVowel(QChar c);
+    struct EntryRSearchRecord {
+        int id;
+        QString name;
+        double rank;
+        QString highlight;
+    };
 };
 
 Q_DECLARE_METATYPE(MelpaltHelper::EntryAuditRecord)
+Q_DECLARE_METATYPE(MelpaltHelper::EntryRSearchRecord)
 
 #endif // MELPALTHELPER_H

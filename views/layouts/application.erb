@@ -15,11 +15,16 @@
   <% } %>
   <form id="search">
     <div>
-      <label for="word">Look up: </label>
-      <input type="text" id="word" name="word">
-    </div>
-    <div>
+      <label for="word">Arka to English: </label>
+      <input type="text" id="word" name="word" class="hacm">
       <button name="search" type="submit" formaction="/Entry/search" formmethod="get">Search</button>
+    </div>
+  </form>
+  <form id="rsearch">
+    <div>
+      <label for="word">English to Arka: </label>
+      <input type="text" id="eword" name="eword">
+      <button name="search_reverse" type="submit" formaction="/Entry/rsearch" formmethod="get">Search</button>
     </div>
   </form>
 </body>

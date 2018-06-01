@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<%#include "entry.h" %>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title><%= controller()->name() + ": " + controller()->activeAction() %></title>
+</head>
+<body>
+
+<h2>Search results</h2>
+
+<div style="color: red;"><%==$message %></div>
+
+<% tfetch(QVector<MelpaltHelper::EntryRSearchRecord>, entries); %>
+
+<div><%= entries.size() %> <%= entries.size() == 1 ? "result" : "results" %>.</div>
+
+<% for (const auto& e : entries) { %>
+  <h3>
+    <hacm><%== linkTo(e.name, urla("show", e.id)) %>
+    <span class="idtag"><%= e.id %></span>
+    [<%= e.rank %>]</hacm>
+  </h3>
+
+  <div class="definition">
+    <%== MarkupHelper::markupToHTML(e.highlight) %>
+  </div>
+<% } %>
+
+</body>
+</html>

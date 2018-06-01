@@ -41,3 +41,27 @@ CREATE TABLE IF NOT EXISTS UserAudit (
 	-- FOREIGN KEY (user) REFERENCES User(id)
 	-- FOREIGN KEY (done_by) REFERENCES User(id)
 );
+
+/*
+INSERT INTO EntryFTS(EntryFTS)
+	VALUES('rebuild');
+
+INSERT INTO EntryFTS(EntryFTS)
+	VALUES('integrity-check');
+*/
+
+CREATE VIRTUAL TABLE IF NOT EXISTS EntryFTS USING fts5(body, content=Entry, content_rowid=id);
+CREATE TRIGGER EntryAI AFTER INSERT ON Entry BEGIN
+	INSERT INTO EntryFTS(rowid, body) VALUES
+		(new.id, new.body);
+END;
+CREATE TRIGGER EntryAD AFTER DELETE ON Entry BEGIN
+	INSERT INTO EntryFTS(EntryFTS, rowid, body) VALUES
+		('delete', old.id, old.body);
+END;
+CREATE TRIGGER EntryAU AFTER UPDATE ON Entry BEGIN
+	INSERT INTO EntryFTS(EntryFTS, rowid, body) VALUES
+		('delete', old.id, old.body);
+	INSERT INTO EntryFTS(rowid, body) VALUES
+		(new.id, new.body);
+END;

@@ -136,3 +136,11 @@ sc {
 .idtag {
   font-size: 50%;
 }
+
+.highlight {
+	background-color: #ffeecc;
+	padding: 3px;
+	margin: -3px;
+	border-radius: 3px;
+	color: #581510;
+}

@@ -19,10 +19,13 @@ QString MelpaltHelper::MelTimestamp::toString() const {
   res.append(" ");
   res.append(xelt == 14 ? myuxet[sel - 1] : lantisShort[sel - 1]);
   res.append(" ");
+  if (miv < 10) res.append("0");
   res.append(QString::number(miv));
   res.append(":");
+  if (fei < 10) res.append("0");
   res.append(QString::number(fei));
   res.append(":");
+  if (jin < 10) res.append("0");
   res.append(QString::number(jin));
   return res;
 }

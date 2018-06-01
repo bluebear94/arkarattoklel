@@ -17,7 +17,9 @@ public slots:
     void save(const QString& id);
     void remove(const QString& id);
     void search(const QString& name);
+    void rsearch(const QString& name);
     void search();
+    void rsearch();
 };
 
 #endif // ENTRYCONTROLLER_H
