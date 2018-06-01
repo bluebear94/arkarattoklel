@@ -11,6 +11,7 @@ public:
 
 public slots:
     void entries();
+    void users();
     void viewChange(const QString& id);
 };
 

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<%#include "useraudit.h" %>
+<%#include "applicationhelper.h" %>
+<%#include "melpalthelper.h" %>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title><%= controller()->name() + ": " + controller()->activeAction() %></title>
+</head>
+<body>
+
+<h2>Account Log</h2>
+
+<div style="color: red;"><%==$message %></div>
+
+<% tfetch(QVector<MelpaltHelper::UserAuditRecord>, records); %>
+<% for (const auto &i : records) { %>
+  <hacm>
+    <% const QString& sender = i.sender.isEmpty() ? "(??""?)" : i.sender; %>
+    <% const QString& receiver = i.receiver.isEmpty() ? "(??""?)" : i.receiver; %>
+      <% if (i.actionID == USER_CREATE) { %>
+        <%= receiver %> at leix
+      <% } else if (i.actionID == USER_REMOVE) { %>
+        <%= sender %> yukit <%= i.oldtext %>
+      <% } else if (i.actionID == USER_CHANGE_REGIST) { %>
+        <%= sender %> miyut nif
+        <%= MelpaltHelper::startsWithVowel(i.receiver) ? "t'" : "e " %><%= receiver %>
+      <% } else if (i.actionID == USER_PASSWORD) { %>
+        <%= sender %> miyut roxt
+        <%= MelpaltHelper::startsWithVowel(i.receiver) ? "t'" : "e " %><%= receiver %>
+      <% } else {%>
+        <%= sender %> esset miiko
+      <% } %>
+    im
+    <%= i.createdAt.toString() %>
+  </hacm>
+  <br />
+<% } %>
+
+</body>
+</html>

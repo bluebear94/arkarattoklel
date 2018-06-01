@@ -55,7 +55,7 @@ void AccountController::regist() {
     }
     QVariantMap values;
     values["user"] = user.id();
-    values["action"] = USER_CREATE;
+    values["action_id"] = USER_CREATE;
     UserAudit::create(values);
     render("regok");
 }
@@ -109,6 +109,7 @@ void AccountController::changeSettings() {
         return;
     }
     user.update();
+    UserAudit::create(user.id(), user.id(), USER_PASSWORD, "", "");
     QString notice = "Changed password.";
     texport(notice);
     render("settings");

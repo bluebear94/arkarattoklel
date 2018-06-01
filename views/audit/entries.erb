@@ -26,9 +26,9 @@ static const char* verbs[] = {"ladat", "ivlat", "yukit", "luulat"};
     im
     <%= i.createdAt.toString() %>
     <% if (i.actionID == ENTRY_RENAME) { %>
-      <%= !i.oldtext.isEmpty() && MelpaltHelper::isVowel(i.oldtext[0]) ? "it" : "i" %>
+      <%= MelpaltHelper::startsWithVowel(i.oldtext) ? "it" : "i" %>
       <%= i.oldtext %>
-      <%= !i.newtext.isEmpty() && MelpaltHelper::isVowel(i.newtext[0]) ? "al" : "a" %>
+      <%= MelpaltHelper::startsWithVowel(i.newtext) ? "al" : "a" %>
       <%= i.newtext %>
     <% } %>
   </hacm>

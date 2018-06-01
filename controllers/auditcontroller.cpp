@@ -45,6 +45,36 @@ void AuditController::entries() {
     render();
 }
 
+static const char* userAuditQuery = R"*(
+SELECT
+    A.created_at, A.action_id,
+    U1.username AS receiver, U2.username AS sender,
+    A.oldtext, A.newtext
+    FROM UserAudit A
+    LEFT JOIN User U1 ON A.user = U1.id
+    LEFT JOIN User U2 ON A.done_by = U2.id
+    ORDER BY A.created_at DESC;
+)*";
+
+void AuditController::users() {
+    TSqlQuery query;
+    query.prepare(userAuditQuery);
+    query.exec();
+    QVector<MelpaltHelper::UserAuditRecord> records;
+    while (query.next()) {
+        records.push_back({
+            MelpaltHelper::create(query.value(0).toString()),
+            query.value(1).toInt(),
+            query.value(2).toString(),
+            query.value(3).toString(),
+            query.value(4).toString(),
+            query.value(5).toString(),
+        });
+    }
+    texport(records);
+    render();
+}
+
 void AuditController::viewChange(const QString& id) {
     int rid = id.toInt();
     auto revision = EntryAudit::get(rid);

@@ -16,6 +16,7 @@ enum UserAction {
     USER_CREATE = 1,
     USER_REMOVE,
     USER_CHANGE_REGIST,
+    USER_PASSWORD,
 };
 
 
