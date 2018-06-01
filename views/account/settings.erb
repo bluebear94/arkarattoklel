@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<%#include "user.h" %>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+</head>
+<% tfetch(QString, username); %>
+<% tfetch(User, user); %>
+<body>
+
+<h1>Profile</h1>
+<div style="color: red;"><%=$error %></div>
+<div style="color: green;"><%=$notice %></div>
+<%== formTag(urla("changeSettings")); %>
+  <div>
+    Username: <%= username %>
+  </div>
+  <div>
+    <label for="oldpassword">Old password: </label>
+    <input type="password" name="oldpassword" value="" />
+  </div>
+  <div>
+    <label for="newpassword">New password: </label>
+    <input type="password" name="newpassword" value="" />
+  </div>
+  <div>
+    <input type="submit" value="Change password" />
+  </div>
+</form>
+
+</body>
+</html>

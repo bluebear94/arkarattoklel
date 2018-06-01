@@ -132,6 +132,24 @@ User User::authenticate(
     return User(obj);
 }
 
+bool User::changePassword(const QString& password) {
+    int errc;
+    QByteArray salt(16, '\0');
+    std::random_device rd;
+    std::uniform_int_distribution<int> dist(0, 255);
+    for (int i = 0; i < 16; ++i) {
+        salt[i] = dist(rd);
+    }
+    QByteArray hash = makeHash(salt, password, errc);
+    if (errc != ARGON2_OK) {
+        tError("User::create: Hash returned error code %d", errc);
+        return false;
+    }
+    setPasshash(hash.toHex());
+    setSalt(salt.toHex());
+    return true;
+}
+
 User User::create(const QString &username, const QString &password, int regist)
 {
     int errc;

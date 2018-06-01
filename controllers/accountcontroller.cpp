@@ -71,5 +71,48 @@ void AccountController::list() {
     render();
 }
 
+void AccountController::settings() {
+    if (!isUserLoggedIn()) {
+        redirect(urla("form"));
+        return;
+    }
+    render();
+}
+
+void AccountController::changeSettings() {
+    if (!isUserLoggedIn()) {
+        redirect(urla("form"));
+        return;
+    }
+    QString password = httpRequest().formItemValue("oldpassword");
+    QString newpass = httpRequest().formItemValue("newpassword");
+    if (password.isEmpty() || newpass.isEmpty()) {
+        QString error = "Password cannot be empty.";
+        texport(error);
+        render("settings");
+        return;
+    }
+    const char* msg;
+    User user = User::get(loginID());
+    User user2 = User::authenticate(user.username(), password, &msg);
+    if (user2.isNull()) {
+        QString error = msg;
+        texport(error);
+        render("settings");
+        return;
+    }
+    bool stat = user.changePassword(newpass);
+    if (!stat) {
+        QString error = "Failed to change password for some reason.";
+        texport(error);
+        render("settings");
+        return;
+    }
+    user.update();
+    QString notice = "Changed password.";
+    texport(notice);
+    render("settings");
+}
+
 // Don't remove below this line
 T_DEFINE_CONTROLLER(AccountController)

@@ -40,6 +40,7 @@ public:
     bool remove() { return TAbstractModel::remove(); }
 
     static User authenticate(const QString &username, const QString &password, const char** message = nullptr);
+    bool changePassword(const QString& password);
     static User create(const QString &username, const QString &passhash, const QString& salt, int regist);
     static User create(const QString &username, const QString &password, int regist);
     static User create(const QVariantMap &values);

@@ -11,7 +11,10 @@
   <% if (username.isEmpty()) { %>
   <p><%== linkTo("Login", QUrl("/Account/form")) %> or <%== linkTo("register", QUrl("/Account/regform")) %></p>
   <% } else { %>
-  <p>Logged in as <%= username %>. <%== linkTo("Logout", QUrl("Account/logout")) %></p>
+  <p>
+    Logged in as <%== linkTo(username, QUrl("/Account/settings")) %>.
+    <%== linkTo("Logout", QUrl("/Account/logout")) %>
+  </p>
   <% } %>
   <form id="search">
     <div>

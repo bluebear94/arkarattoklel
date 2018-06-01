@@ -17,6 +17,8 @@ public slots:
     void regform();
     void regist();
     void list();
+    void settings();
+    void changeSettings();
 };
 
 #endif // ACCOUNTCONTROLLER_H
