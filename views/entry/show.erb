@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <%#include "entry.h" %>
+<%#include "melpalthelper.h" %>
 <% tfetch(Entry, entry); %>
 <html>
 <head>
@@ -16,9 +17,9 @@
   <%== MarkupHelper::markupToHTML(entry.body()) %>
 </div>
 
-<dt>Created at</dt><dd><%= entry.createdAt() %></dd><br />
-<dt>Updated at</dt><dd><%= entry.updatedAt() %></dd><br />
-<dt>Lock Revision</dt><dd><%= entry.lockRevision() %></dd><br />
+<p class="hacm">at lad im <%= MelpaltHelper::ltm(entry.createdAt()) %></p>
+<p class="hacm">at sam im <%= MelpaltHelper::ltm(entry.updatedAt()) %></p>
+<p class="hacm">at sam ras <%= entry.lockRevision() %></p>
 
 <%== linkTo("Edit", urla("save", entry.id())) %> |
 <%== linkTo("Back", urla("index")) %>
