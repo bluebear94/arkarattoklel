@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<%#include "user.h" %>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+</head>
+<% tfetch(User, patient); %>
+<% tfetch(bool, canChangePassword); %>
+<body>
+
+<h1>Profile</h1>
+<div style="color: red;"><%=$error %></div>
+<div style="color: green;"><%=$notice %></div>
+<%== formTag(urla("edit", patient.id()), Tf::Post); %>
+  <div>
+    Username: <%= patient.username() %>
+  </div>
+  <% if (canChangePassword) { %>
+    <div>
+      <label for="newpassword">Change password to: </label>
+      <input type="password" name="newpassword" value="" />
+    </div>
+  <% } %>
+  <div>
+    <label for="regist">Level: </label>
+    <input type="text" name="regist" value="<%= patient.regist() %>" />
+  </div>
+  <div>
+    <label for="oldpassword">Your password: </label>
+    <input type="password" name="oldpassword" value="" />
+  </div>
+  <div>
+    <input type="submit" value="Submit changes" />
+  </div>
+</form>
+
+</body>
+</html>

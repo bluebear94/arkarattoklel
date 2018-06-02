@@ -19,6 +19,7 @@ public slots:
     void list();
     void settings();
     void changeSettings();
+    void edit(const QString& id);
 };
 
 #endif // ACCOUNTCONTROLLER_H

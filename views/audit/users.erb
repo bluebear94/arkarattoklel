@@ -25,6 +25,8 @@
       <% } else if (i.actionID == USER_CHANGE_REGIST) { %>
         <%= sender %> miyut nif
         <%= MelpaltHelper::startsWithVowel(i.receiver) ? "t'" : "e " %><%= receiver %>
+        <%= MelpaltHelper::startsWithVowel(i.receiver) ? "it" : "i" %> <%= i.oldtext %>
+        <%= MelpaltHelper::startsWithVowel(i.receiver) ? "al" : "a" %> <%= i.newtext %>
       <% } else if (i.actionID == USER_PASSWORD) { %>
         <%= sender %> miyut roxt
         <%= MelpaltHelper::startsWithVowel(i.receiver) ? "t'" : "e " %><%= receiver %>

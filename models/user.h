@@ -13,6 +13,13 @@ class TModelObject;
 class UserObject;
 class QJsonArray;
 
+#define CHECK_LOGIN \
+    if (!isUserLoggedIn()) { \
+        QString message = "Please log in to edit the dictionary."; \
+        tflash(message); \
+        redirect(QUrl("/Account/form")); \
+        return; \
+    }
 
 class T_MODEL_EXPORT User : public TAbstractUser, public TAbstractModel
 {

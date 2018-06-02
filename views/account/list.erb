@@ -23,6 +23,9 @@
     <hacm><%== i.username() %>
       <span class="idtag"><%= i.id() %></span>
       oken nif <%== i.regist() %>
+      <% if (user.regist() > i.regist()) { %>
+        (<%== linkTo("diaf", urla("edit", i.id())) %>)
+      <% } %>
     </hacm>
   </div>
 <% } %>

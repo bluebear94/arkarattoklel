@@ -9,14 +9,7 @@
 #include "entryaudit.h"
 #include "sqlobjects/entryobject.h"
 #include "melpalthelper.h"
-
-#define CHECK_LOGIN \
-    if (!isUserLoggedIn()) { \
-        QString message = "Please log in to edit the dictionary."; \
-        tflash(message); \
-        redirect(QUrl("/Account/form")); \
-        return; \
-    }
+#include "user.h"
 
 void EntryController::index()
 {
