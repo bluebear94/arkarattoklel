@@ -1,5 +1,7 @@
 ## rattoarkaklel
 
+**ALERT:** Moved to [GitLab](https://gitlab.com/Kyarei/arkarattoklel).
+
 Source code for what I hope will be the Arka-English dictionary.
 
 ### How to build
